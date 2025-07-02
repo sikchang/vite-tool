@@ -1,0 +1,15 @@
+{
+  // 맨날 터미널에서 ~~ 해줘 라는 명령어 귀찮기 때문에 미리 써준다.
+  // compilerOptions의 outDir설정하면 터미널에 tsc만 입력해도 생성된다.
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "esnext",
+    "skipLibCheck": true,
+    // 매콤한맛 실행..;;
+    "strict": true,
+    "module": "esnext",
+    // 독립적인 모듈로 인식을 하면 같은 변수의 이름도 넘어간다.
+    "moduleDetection": "force",
+  },
+}

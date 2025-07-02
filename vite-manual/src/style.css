@@ -1,0 +1,11 @@
+body{
+    background-color: #484848;
+    color: white;
+}
+
+
+/* 오염된 가능성이 있음 그래서 앞에다가
+   어떤 부모를 명시를 해줘서 */
+.figure{
+    background-color: orange;
+}
