@@ -25,12 +25,59 @@ async function fetchData(url:string):Promise<Pokemon> {
 
 
 
+// createCard
+function createCard({ sprites, name }:Pick<Pokemon, 'sprites'|'name'>):string {
+  
+  const tag = `
+    <div class="card">
+      <img src="${sprites['front_default']}" alt="${name}"/>
+      <h2>${name}</h2>
+    </div>
+  `
+
+  return tag
+}
 
 
 
+// renderCard
+function renderCard(target:HTMLElement | null, data:Pokemon):void {
+  
+  // target?.insertAdjacentHTML('beforeend', createCard(data))
+  target && target.insertAdjacentHTML('beforeend', createCard(data))
+      // 앞 target이 false면 뒤에 target실행 X
+}
 
+function fetchPokemon() {
+  const arr:Promise<Pokemon>[] = [];
 
+  Array(10).fill(null).forEach((_,i) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${i + 1}`
+    arr.push(fetch(url).then((res) => res.json()));
+  })
 
+  return arr;
+
+}
+
+function createPokemonObject(arr:Promise<Pokemon>[]) {
+  
+  let pokemon: unknown;
+
+  // 배열에 있는 것 모두 순환(.all)
+  Promise.all(arr)
+    .then((all) => {
+      pokemon = all.map((p) => {
+        return {
+          name: p.name,
+          image:p.sprites['front_default']
+        }
+      })
+    })
+  return pokemon
+}
+
+createPokemonObject(fetchPokemon())
 
 
 
